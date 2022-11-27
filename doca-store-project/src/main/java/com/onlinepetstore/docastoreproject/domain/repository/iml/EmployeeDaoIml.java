@@ -22,14 +22,17 @@ public class EmployeeDaoIml implements EmployeeDao {
 
     // insert a record to employee table
     public int insertRecord(Employee employee) throws DataAccessException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int row = jdbc.update(
-                "INSERT INTO employee (employee_id, first_name, last_name, born_date, phone_number, email_address, address, administrator, password, registered_at, updated_at) "
-                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                employee.getEmployeeId(), employee.getFirstName(), employee.getLastName(),
+                "INSERT INTO employee (first_name, last_name, born_date, phone_number, email_address, address, administrator, password, registered_at, updated_at, employee_register_id, employee_update_id) "
+                        + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                employee.getFirstName(), employee.getLastName(),
                 employee.getBornDate(), employee.getPhoneNumber(), employee.getEmailAddress(),
                 employee.getAddress(), employee.isAdministrator(), employee.getPassword(),
-                employee.getRegisteredAt(), employee.getUpdatedAt(), employee.getEmployeeRegisterId(),
-                employee.getEmployeeUpdateId());
+                timestamp, timestamp, 1, 1);
+        // employee.getRegisteredAt(), employee.getUpdatedAt(),
+        // employee.getEmployeeRegisterId(),
+        // employee.getEmployeeUpdateId());
         return row;
     }
 
@@ -82,20 +85,21 @@ public class EmployeeDaoIml implements EmployeeDao {
 
     // upate a record from employee table
     public int updateRecord(Employee employee) throws DataAccessException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int row = jdbc.update(
                 "UPDATE employee "
-                        + "SET employee_id = ?, first_name = ?, last_name = ?, born_date = ?, phone_number = ?, email_address = ?, address = ?, administrator = ?, password = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id = ?",
-                employee.getEmployeeId(), employee.getFirstName(), employee.getLastName(), employee.getBornDate(),
+                        + "SET first_name = ?, last_name = ?, born_date = ?, phone_number = ?, email_address = ?, address = ?, administrator = ?, password = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id = ?"
+                        + " WHERE employee_id = ?",
+                employee.getFirstName(), employee.getLastName(), employee.getBornDate(),
                 employee.getPhoneNumber(), employee.getEmailAddress(), employee.getAddress(),
-                employee.isAdministrator(), employee.getRegisteredAt(),
-                employee.getUpdatedAt(), employee.getEmployeeRegisterId(),
-                employee.getEmployeeUpdateId());
+                employee.isAdministrator(), employee.getPassword(), timestamp,
+                timestamp, 1, 1, employee.getEmployeeId());
         return row;
     }
 
     // delete a record from employee table
     public int deleteRecord(int employeeId) throws DataAccessException {
-        int row = jdbc.update("DELETE FROM employee " + "WHERE employee_id = ?");
+        int row = jdbc.update("DELETE FROM employee " + "WHERE employee_id = ?", employeeId);
         return row;
     }
 

@@ -1,100 +1,159 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
 
-<head>
-    <title>EmployeeList</title>
-    <link href="/css/employee.css" rel="stylesheet">
+<head th:replace="common :: meta_header(title = 'EmployeeList',links = ~{::link})">
+    <link th:href="@{/css/employee.css}" rel="stylesheet">
     </link>
-    <meta charset="utf-8" />
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
-        integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 </head>
 
 <body>
-    <h1>EmployeeList</h1>
-    <table>
-        <thead>
-            <tr>
-                <th>Employee ID</th>
-                <th>First Name</th>
-                <th>Last Name</th>
-                <th>Born Date</th>
-                <th>Email Address</th>
-                <th>Phone Number</th>
-                <th>Address</th>
-                <th>Password</th>
-                <th>Administrator</th>
-                <th>Registered At</th>
-                <th>Updated At</th>
-                <th>Employee Register ID</th>
-                <th>Employee Update ID</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr th:each="employee : ${employeeList}" th:object="${employee}">
-                <td th:text="*{employeeId}"></td>
-                <td th:text="*{firstName}"></td>
-                <td th:text="*{lastName}"></td>
-                <td th:text="*{bornDate}"></td>
-                <td th:text="*{phoneNumber}"></td>
-                <td th:text="*{emailAddress}"></td>
-                <td th:text="*{address}"></td>
-                <td th:text="*{password}"></td>
-                <td th:text="*{administrator}"></td>
-                <td th:text="${#dates.format(employee.registeredAt, 'yyyy/MM/dd')}"></td>
-                <td th:text="${#dates.format(employee.updatedAt, 'yyyy/MM/dd')}"></td>
-                <td th:text="*{employeeRegisterId}"></td>
-                <td th:text="*{employeeUpdateId}"></td>
-            </tr>
-        </tbody>
-    </table>
-    <br>
+    <div th:replace="common :: header"></div>
+    <h1 class="my-3 ml-3">EmployeeList</h1>
+    <div class="ml-3 tableframe">
+        <table id="employeetable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Employee ID</th>
+                    <th>First Name</th>
+                    <th>Last Name</th>
+                    <th>Born Date</th>
+                    <th>Email Address</th>
+                    <th>Phone Number</th>
+                    <th>Address</th>
+                    <th>Password</th>
+                    <th>Administrator</th>
+                    <th>Registered At</th>
+                    <th>Updated At</th>
+                    <th>Employee Register ID</th>
+                    <th>Employee Update ID</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="employee : ${employeeList}" th:object="${employee}">
+                    <td th:text="*{employeeId}"></td>
+                    <td th:text="*{firstName}"></td>
+                    <td th:text="*{lastName}"></td>
+                    <td th:text="*{bornDate}"></td>
+                    <td th:text="*{phoneNumber}"></td>
+                    <td th:text="*{emailAddress}"></td>
+                    <td th:text="*{address}"></td>
+                    <td th:text="*{password}"></td>
+                    <td th:text="*{administrator}"></td>
+                    <td th:text="${#dates.format(employee.registeredAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#dates.format(employee.updatedAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="*{employeeRegisterId}"></td>
+                    <td th:text="*{employeeUpdateId}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h2 class="my-3 ml-3">Details</h2>
+    <form class="ml-3" th:object="${newemployee}" th:method="post">
+        <div class="formframe p-3">
+            <div class="form-group">
+                <label>Employee ID: <span class="text-danger"></span></label>
+                <input id="employeeId" type="text" th:field="*{employeeId}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>First Name: <span class="text-danger"></span></label>
+                <input id="firstName" type="text" th:field="*{firstName}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Last Name: <span class="text-danger"></span></label>
+                <input id="lastName" type="text" th:field="*{lastName}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Born Date: <span class="text-danger"></span></label>
+                <input id="bornDate" type="text" th:field="*{bornDate}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Phone Number: <span class="text-danger"></span></label>
+                <input id="phoneNumber" type="text" th:field="*{phoneNumber}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Email Address: <span class="text-danger"></span></label>
+                <input id="emailAddress" type="text" th:field="*{emailAddress}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Address: <span class="text-danger"></span></label>
+                <input id="address" type="text" th:field="*{address}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Password: <span class="text-danger"></span></label>
+                <input id="password" type="text" th:field="*{password}" class="form-control">
+            </div>
+            <div class="custom-control custom-checkbox checkbox-xl">
+                    <input id="administrator" type="checkbox" th:field="*{administrator}" class="custom-control-input">
+                    <label class="custom-control-label" for = "administrator">GRANT ADMINISTRATOR ROLE</label>
+            </div>
+        </div>
+        <br>
+        <button id="register" type="submit" class="btn btn-primary"
+            th:formaction="@{/employee/insert}">Register</button>
+        <button id="update" type="submit" class="btn btn-success" th:formaction="@{/employee/update}" disabled>Update</button>
+        <button id="delete" type="submit" class="btn btn-danger" th:formaction="@{/employee/delete}" disabled>Delete</button>
+        <button id="clear" type="button" class="btn btn-secondary">Clear</button>
 
-    <form th:action="@{/insert}" th:object="${employee}" th:method="post">
-        <div class="form-group">
-            <label>Employee ID: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{employeeId}" class="form-control">
-        </div>
-        <!-- <div class="form-group">
-            <label>First Name: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{firstName}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Last Name: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{lastName}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Born Date: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{bornDate}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Phone Number: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{phoneNumber}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Email Address: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{emailAddress}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Address: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{address}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Password: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{password}" class="form-control">
-        </div>
-        <div class="form-group">
-            <label>Password: <span class="text-danger">※</span></label>
-            <input type="text" th:field="*{administrator}" class="form-control">
-        </div> -->
     </form>
-
-    <button type="button" class="btn btn-primary">Register</button>
-    <button type="button" class="btn btn-secondary">Update</button>
-    <button type="button" class="btn btn-success">Delete</button>
-    <button type="button" class="btn btn-danger">Clear</button>
-
-
 </body>
+
+<script>
+    $("#register").on("click", function () {
+        adminCheck();
+    })
+
+    $("#update").on("click", function () {
+        adminCheck();
+    })
+    $("#delete").on("click", function () {
+
+    })
+
+    $("#clear").on("click", function () {
+        $("#employeeId").val("");
+        $("#firstName").val("");
+        $("#lastName").val("");
+        $("#bornDate").val("");
+        $("#phoneNumber").val("");
+        $("#emailAddress").val("");
+        $("#address").val("");
+        $("#password").val("");
+        $("#administrator").val("false");
+        $("#register").prop("disabled", false);
+        $("#update").prop("disabled", true);
+        $("#delete").prop("disabled", true);
+    });
+
+    $("#employeetable tr").on("click", function () {
+        var tr_now = $(this).index() + 1;
+        var table = document.getElementById("employeetable");
+        $("#employeeId").val(table.rows[tr_now].cells[0].textContent);
+        $("#firstName").val(table.rows[tr_now].cells[1].textContent);
+        $("#lastName").val(table.rows[tr_now].cells[2].textContent);
+        $("#bornDate").val(table.rows[tr_now].cells[3].textContent);
+        $("#phoneNumber").val(table.rows[tr_now].cells[4].textContent);
+        $("#emailAddress").val(table.rows[tr_now].cells[5].textContent);
+        $("#address").val(table.rows[tr_now].cells[6].textContent);
+        $("#password").val(table.rows[tr_now].cells[7].textContent);
+        if (table.rows[tr_now].cells[8].textContent === "true") {
+            $("#administrator").prop("checked", true);
+        } else {
+            $("#administrator").prop("checked", false);
+        };
+        $("#administrator").val(table.rows[tr_now].cells[8].textContent);
+        $("#register").prop("disabled", true);
+        $("#update").prop("disabled", false);
+        $("#delete").prop("disabled", false);
+    });
+
+    function adminCheck() {
+        if ($("#administrator").prop("checked")) {
+            $("#administrator").val("true");
+        } else {
+            $("#administrator").val("false");
+        };
+    }
+
+</script>
 
 </html>

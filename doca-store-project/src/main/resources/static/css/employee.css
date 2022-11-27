@@ -1,0 +1,51 @@
+body {
+    width: 90%;
+}
+
+.tableframe {
+    height: 225px;
+    border: 3px solid #000000;
+    overflow: scroll;
+}
+
+thead tr th {
+    position: sticky;
+    top: 0;
+  }
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 6px;
+}
+
+table th {
+    background-color: #FFFF00;
+}
+
+.formframe {
+    height: 275px;
+    border: 2px solid #ddd;
+    overflow: scroll;
+}
+
+button {
+    width: 200px
+}
+
+.checkbox-xl .custom-control-label::before, 
+.checkbox-xl .custom-control-label::after {
+  top: 1.2rem;
+  width: 1.85rem;
+  height: 1.85rem;
+}
+
+.checkbox-xl .custom-control-label {
+  padding-top: 23px;
+  padding-left: 10px;
+}
