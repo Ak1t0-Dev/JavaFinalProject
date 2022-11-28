@@ -20,32 +20,39 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="categoryPet : ${categoryPetList}" th:object="${categoryPet}">
+                <tr th:each="categoryPetService : ${categoryPetList}" th:object="${categoryPetService}">
                     <td th:text="*{categoryPetId}"></td>
                     <td th:text="*{categoryName}"></td>
-                    <td th:text="${#dates.format(categoryPet.registeredAt, 'yyyy/MM/dd')}"></td>
-                    <td th:text="${#dates.format(categoryPet.updatedAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#dates.format(categoryPetService.registeredAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#dates.format(categoryPetService.updatedAt, 'yyyy/MM/dd')}"></td>
                 </tr>
             </tbody>
         </table>
     </div>
     <h2 class="my-3 ml-3">Details</h2>
-    <form class="ml-3"  method="post" action="/categoryPet/insert">
-        <div class="formframe p-3">    
-            <input id="employeeRegisterId" type="hidden" th:field="${categoryPet.employeeRegisterId}" class="form-control" >
-            <input id="employeeUpdateId" type="hidden" th:field="${categoryPet.employeeUpdateId}" class="form-control">
+    <form class="ml-3" method="post" action="/categoryPet/insert">
+        <div class="formframe p-3">
+            <input id="employeeRegisterId" type="hidden" th:field="${categoryPetService.employeeRegisterId}"
+                class="form-control">
+            <input id="employeeUpdateId" type="hidden" th:field="${categoryPetService.employeeUpdateId}" class="form-control">
             <div class="form-group">
                 <label>Category Pet ID:</label>
-                <input id="categoryPetId" type="text" th:field="${categoryPet.categoryPetId}" class="form-control" readonly>
-                <label>Category Name: <span class="text-danger" th:errors="${categoryPet.categoryName}"></span></label>
-                <input id="categoryName" type="text" th:field="${categoryPet.categoryName}" class="form-control" placeholder="Dog">
+                <input id="categoryPetId" type="text" th:field="${categoryPetService.categoryPetId}" class="form-control"
+                    readonly>
             </div>
+            <div class="form-group"></div>
+            <label>Category Name: <span class="text-danger" th:errors="${categoryPetService.categoryName}"></span></label>
+            <input id="categoryName" type="text" th:field="${categoryPetService.categoryName}" class="form-control"
+                placeholder="Dog">
+        </div>
         </div>
         <br>
-     
+
         <button id="register" type="submit" class="btn btn-primary">Register</button>
-        <button id="update" type="submit" class="btn btn-success" th:formaction="@{/categoryPet/update}" disabled>Update</button>
-        <button id="delete" type="submit" class="btn btn-danger" th:formaction="@{/categoryPet/delete}" disabled>Delete</button>
+        <button id="update" type="submit" class="btn btn-success" th:formaction="@{/categoryPet/update}"
+            disabled>Update</button>
+        <button id="delete" type="submit" class="btn btn-danger" th:formaction="@{/categoryPet/delete}"
+            disabled>Delete</button>
         <button id="clear" type="button" class="btn btn-secondary">Clear</button>
     </form>
 </body>

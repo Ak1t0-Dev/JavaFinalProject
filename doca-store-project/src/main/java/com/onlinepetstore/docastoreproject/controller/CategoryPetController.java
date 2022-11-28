@@ -28,10 +28,10 @@ public class CategoryPetController {
     CategoryPetService categoryPetService;
 
     @GetMapping
-    public String showData(Model model) {
+    public String showData(Model model, @ModelAttribute("categoryPetService") CategoryPet categoryPet) {
         List<CategoryPet> categoryPetList = categoryPetService.selectAll();
         model.addAttribute("categoryPetList", categoryPetList);
-        model.addAttribute("categoryPet", new CategoryPet());
+        // model.addAttribute("categoryPet", new CategoryPet());
         return "categoryPet";
     }
 
@@ -40,6 +40,9 @@ public class CategoryPetController {
             BindingResult result,
             RedirectAttributes redirectAttributes) {
         Employee employee = employeeService.select(1);
+        if (result.hasErrors()) {
+            return showData(model, categoryPet);
+        }
         categoryPetService.insert(categoryPet, employee);
         return "redirect:/categoryPet";
     }
@@ -49,6 +52,9 @@ public class CategoryPetController {
             BindingResult result,
             RedirectAttributes redirectAttributes) {
         Employee employee = employeeService.select(1);
+        if (result.hasErrors()) {
+            return showData(model, categoryPet);
+        }
         categoryPetService.update(categoryPet, employee);
         return "redirect:/categoryPet";
     }
