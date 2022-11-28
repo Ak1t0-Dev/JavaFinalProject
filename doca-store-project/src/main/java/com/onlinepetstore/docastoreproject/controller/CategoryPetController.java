@@ -48,7 +48,8 @@ public class CategoryPetController {
     public String update(Model model, @Validated @ModelAttribute("categoryPetService") CategoryPet categoryPet,
             BindingResult result,
             RedirectAttributes redirectAttributes) {
-        categoryPetService.update(categoryPet);
+        Employee employee = employeeService.select(1);
+        categoryPetService.update(categoryPet, employee);
         return "redirect:/categoryPet";
     }
 

@@ -31,13 +31,14 @@
     </div>
     <h2 class="my-3 ml-3">Details</h2>
     <form class="ml-3"  method="post" action="/categoryPet/insert">
-        <div class="formframe p-3">
-            <input id="categoryPetId" type="hidden" th:field="${categoryPet.categoryPetId}" class="form-control">
+        <div class="formframe p-3">    
             <input id="employeeRegisterId" type="hidden" th:field="${categoryPet.employeeRegisterId}" class="form-control" >
             <input id="employeeUpdateId" type="hidden" th:field="${categoryPet.employeeUpdateId}" class="form-control">
             <div class="form-group">
+                <label>Category Pet ID:</label>
+                <input id="categoryPetId" type="text" th:field="${categoryPet.categoryPetId}" class="form-control" readonly>
                 <label>Category Name: <span class="text-danger" th:errors="${categoryPet.categoryName}"></span></label>
-                <input id="categoryName" type="text" th:field="${categoryPet.categoryName}" class="form-control">
+                <input id="categoryName" type="text" th:field="${categoryPet.categoryName}" class="form-control" placeholder="Dog">
             </div>
         </div>
         <br>
@@ -52,6 +53,7 @@
 <script>
 
     $("#clear").on("click", function () {
+        $("#categoryPetId").val("");
         $("#categoryName").val("");
         $("#register").prop("disabled", false);
         $("#update").prop("disabled", true);
@@ -61,6 +63,7 @@
     $("#categoryPettable tr").on("click", function () {
         var tr_now = $(this).index() + 1;
         var table = document.getElementById("categoryPettable");
+        $("#categoryPetId").val(table.rows[tr_now].cells[0].textContent);
         $("#categoryName").val(table.rows[tr_now].cells[1].textContent);
         $("#register").prop("disabled", true);
         $("#update").prop("disabled", false);
