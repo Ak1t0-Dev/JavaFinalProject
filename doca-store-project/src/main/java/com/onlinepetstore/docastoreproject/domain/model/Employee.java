@@ -3,38 +3,38 @@ package com.onlinepetstore.docastoreproject.domain.model;
 import java.sql.Date;
 import java.sql.Timestamp;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+
 
 import lombok.Data;
 
 @Data
-// @Table(name = "employee")
 public class Employee {
 
-    // @Column(value = "employeeid")
     @NotNull
     private int employeeId;
-    @NotNull
-    @Size(min = 1, max = 45)
+    @NotBlank
+    @Size(max = 2)
     private String firstName;
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45)
     private String lastName;
     @NotNull
     private Date bornDate;
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 20)
     private String phoneNumber;
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45)
     private String emailAddress;
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 45)
     private String address;
     @NotNull
     private boolean administrator;
-    @NotNull
+    @NotBlank
     @Size(min = 1, max = 100)
     private String password;
     @NotNull

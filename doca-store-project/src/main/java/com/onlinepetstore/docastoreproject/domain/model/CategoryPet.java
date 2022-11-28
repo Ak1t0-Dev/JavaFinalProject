@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class CategoryPet {
-    private String categoryPetId;
+    private int categoryPetId;
     private String categoryName;
     private Timestamp registeredAt;
     private Timestamp updatedAt;

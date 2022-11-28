@@ -51,11 +51,12 @@
     <form class="ml-3" th:object="${newemployee}" th:method="post">
         <div class="formframe p-3">
             <div class="form-group">
-                <label>Employee ID: <span class="text-danger"></span></label>
-                <input id="employeeId" type="text" th:field="*{employeeId}" class="form-control">
+                <label>Employee ID:</label>
+                <!-- <input id="employeeId" type="text" th:field="*{employeeId}" class="form-control"> -->
+                <input id="employeeId" type="text" class="form-control">
             </div>
             <div class="form-group">
-                <label>First Name: <span class="text-danger"></span></label>
+                <label>First Name: <span class="text-danger" th:errors="*{firstName}"></span></span></label>
                 <input id="firstName" type="text" th:field="*{firstName}" class="form-control">
             </div>
             <div class="form-group">
@@ -93,7 +94,6 @@
         <button id="update" type="submit" class="btn btn-success" th:formaction="@{/employee/update}" disabled>Update</button>
         <button id="delete" type="submit" class="btn btn-danger" th:formaction="@{/employee/delete}" disabled>Delete</button>
         <button id="clear" type="button" class="btn btn-secondary">Clear</button>
-
     </form>
 </body>
 
