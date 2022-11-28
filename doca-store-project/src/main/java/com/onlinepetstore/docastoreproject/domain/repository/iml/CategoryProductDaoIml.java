@@ -14,7 +14,7 @@ import com.onlinepetstore.docastoreproject.domain.model.CategoryProduct;
 import com.onlinepetstore.docastoreproject.domain.repository.CategoryProductDao;
 
 @Repository("CategoryProductDaoIml")
-public class CategoryProductDaoIml implements CategoryProductDao{
+public class CategoryProductDaoIml implements CategoryProductDao {
 
     @Autowired
     JdbcTemplate jdbc;
@@ -22,17 +22,20 @@ public class CategoryProductDaoIml implements CategoryProductDao{
     // insert a record to category_product table
     @Override
     public int insertRecord(CategoryProduct categoryProduct) throws DataAccessException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int row = jdbc.update(
-            "INSERT INTO category_product (category_product_id, category_name, registered_at, updated_at, employee_register_id, employee_update_id) " + "VALUES (?, ?, ?, ?, ?, ?)",
-            categoryProduct.getCategoryProductId(), categoryProduct.getCategoryName(), categoryProduct.getRegisteredAt(), categoryProduct.getUpdatedAt(), categoryProduct.getEmployeeRegisterId(), categoryProduct.getEmployeeUpdateId());
-    return row;
+                "INSERT INTO category_product (category_product_id, category_name, registered_at, updated_at, employee_register_id, employee_update_id) "
+                        + "VALUES (?, ?, ?, ?, ?, ?)",
+                categoryProduct.getCategoryProductId(), categoryProduct.getCategoryName(),
+                timestamp, timestamp, 1, 1);
+        return row;
     }
 
     // select a record from category_product table
     @Override
     public CategoryProduct selectRecord(int categoryProductId) throws DataAccessException {
         Map<String, Object> map = jdbc.queryForMap("SELECT * FROM category_product " + "WHERE category_product_id = ?",
-        categoryProductId);
+                categoryProductId);
         // An instance for a result
         CategoryProduct categoryProduct = new CategoryProduct();
         categoryProduct.setCategoryProductId((Integer) map.get("category_product_id"));
@@ -63,13 +66,16 @@ public class CategoryProductDaoIml implements CategoryProductDao{
         return categoryProductList;
     }
 
-     // upate a record from category_product table
+    // upate a record from category_product table
     @Override
     public int updateRecord(CategoryProduct categoryProduct) throws DataAccessException {
         int row = jdbc.update(
-            "UPDATE category_product " + "SET category_product_id = ?, category_name = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id  = ?",
-            categoryProduct.getCategoryProductId(), categoryProduct.getCategoryName(), categoryProduct.getRegisteredAt(), categoryProduct.getUpdatedAt(), categoryProduct.getEmployeeRegisterId(), categoryProduct.getEmployeeUpdateId());
-            return row;
+                "UPDATE category_product "
+                        + "SET category_product_id = ?, category_name = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id  = ?",
+                categoryProduct.getCategoryProductId(), categoryProduct.getCategoryName(),
+                categoryProduct.getRegisteredAt(), categoryProduct.getUpdatedAt(),
+                categoryProduct.getEmployeeRegisterId(), categoryProduct.getEmployeeUpdateId());
+        return row;
     }
 
     // delete a record from category_product table
@@ -78,5 +84,5 @@ public class CategoryProductDaoIml implements CategoryProductDao{
         int row = jdbc.update("DELETE FROM category_product " + "WHERE category_product_id = ?");
         return row;
     }
-    
+
 }

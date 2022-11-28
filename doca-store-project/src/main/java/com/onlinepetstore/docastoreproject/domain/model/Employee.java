@@ -7,7 +7,6 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-
 import lombok.Data;
 
 @Data
@@ -16,7 +15,7 @@ public class Employee {
     @NotNull
     private int employeeId;
     @NotBlank
-    @Size(max = 2)
+    @Size(min = 1, max = 45)
     private String firstName;
     @NotBlank
     @Size(min = 1, max = 45)

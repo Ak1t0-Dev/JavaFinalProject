@@ -28,16 +28,16 @@ public class EmployeeController {
     public String showData(Model model, @ModelAttribute("newemployee") Employee empolyee) {
         List<Employee> employeeList = employeeService.selectAll();
         model.addAttribute("employeeList", employeeList);
-        // model.addAttribute("newemployee", new Employee());
+        model.addAttribute("employee", new Employee());
         return "employee";
     }
 
     @PostMapping("/insert")
     public String insert(Model model, @Validated @ModelAttribute("newemployee") Employee employee, BindingResult result,
             RedirectAttributes redirectAttributes) {
-        if (result.hasErrors()) {
-            return showData(model, employee);
-        }
+        // if (result.hasErrors()) {
+        // return showData(model, employee);
+        // }
         employeeService.insert(employee);
 
         return "redirect:/employee";
@@ -52,7 +52,7 @@ public class EmployeeController {
     // update a record
     @PostMapping("/update")
     public String update(Model model, @Validated @ModelAttribute("newemployee") Employee employee, BindingResult result,
-    RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes) {
         employeeService.update(employee);
         return "redirect:/employee";
     }

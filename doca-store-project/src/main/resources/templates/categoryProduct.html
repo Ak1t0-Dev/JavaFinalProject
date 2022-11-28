@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common :: meta_header(title = 'categoryProductList',links = ~{::link})">
+    <link th:href="@{/css/employee.css}" rel="stylesheet">
+    </link>
+</head>
+
+<body>
+    <div th:replace="common :: header"></div>
+    <h1 class="my-3 ml-3">Category Product List</h1>
+    <div class="ml-3 tableframe">
+        <table id="categoryProducttable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Category ID</th>
+                    <th>categoryName</th>
+                    <th>registeredAt</th>
+                    <th>updatedAt</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="categoryProduct : ${categoryProductList}" th:object="${categoryProduct}">
+                    <td th:text="*{categoryProductId}"></td>
+                    <td th:text="*{categoryName}"></td>
+                    <td th:text="${#dates.format(categoryProduct.registeredAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#dates.format(categoryProduct.updatedAt, 'yyyy/MM/dd')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h2 class="my-3 ml-3">Details</h2>
+    <form class="ml-3"  method="post" action="/categoryProduct/insert">
+        <div class="formframe p-3">
+            <input id="categoryProductId" type="hidden" th:field="${categoryProduct.categoryProductId}" class="form-control">
+            <input id="employeeRegisterId" type="hidden" th:field="${categoryProduct.employeeRegisterId}" class="form-control" >
+            <input id="employeeUpdateId" type="hidden" th:field="${categoryProduct.employeeUpdateId}" class="form-control">
+            <div class="form-group">
+                <label>Category Name: <span class="text-danger" th:errors="${categoryProduct.categoryName}"></span></label>
+                <input id="categoryName" type="text" th:field="${categoryProduct.categoryName}" class="form-control">
+            </div>
+        </div>
+        <br>
+     
+        <button id="register" type="submit" class="btn btn-primary">Register</button>
+        <button id="update" type="submit" class="btn btn-success" th:formaction="@{/categoryProduct/update}" disabled>Update</button>
+        <button id="delete" type="submit" class="btn btn-danger" th:formaction="@{/categoryProduct/delete}" disabled>Delete</button>
+        <button id="clear" type="button" class="btn btn-secondary">Clear</button>
+    </form>
+</body>
+
+<script>
+
+    $("#clear").on("click", function () {
+        $("#categoryName").val("");
+        $("#register").prop("disabled", false);
+        $("#update").prop("disabled", true);
+        $("#delete").prop("disabled", true);
+    });
+
+    $("#categoryProducttable tr").on("click", function () {
+        var tr_now = $(this).index() + 1;
+        var table = document.getElementById("categoryProducttable");
+        $("#categoryName").val(table.rows[tr_now].cells[1].textContent);
+        $("#register").prop("disabled", true);
+        $("#update").prop("disabled", false);
+        $("#delete").prop("disabled", false);
+    });
+
+</script>
+
+</html>
