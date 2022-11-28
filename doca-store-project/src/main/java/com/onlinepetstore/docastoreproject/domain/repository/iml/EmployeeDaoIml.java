@@ -38,7 +38,7 @@ public class EmployeeDaoIml implements EmployeeDao {
 
     // select a record from employee table
     public Employee selectRecord(int employeeId) throws DataAccessException {
-        Map<String, Object> map = jdbc.queryForMap("SELECT * FROM employee " + "WHERE employee_id = ?",
+        Map<String, Object> map = jdbc.queryForMap("SELECT * FROM employee WHERE employee_id = ?",
                 employeeId);
         // An instance for a result
         Employee employee = new Employee();

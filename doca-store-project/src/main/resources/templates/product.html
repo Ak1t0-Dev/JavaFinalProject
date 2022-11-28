@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="common :: meta_header(title = 'CategoryPetList',links = ~{::link})">
+    <link th:href="@{/css/employee.css}" rel="stylesheet">
+</link>
+</head>
+
+<body>
+    <div th:replace="common :: header"></div>
+    <h1 class="my-3 ml-3">Products List</h1>
+    <div class="ml-3 tableframe">
+        <table id="producttable" class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Product ID</th>
+                    <th>Product Name</th>
+                    <th>Unit Price</th>
+                    <th>Category Product Id</th>
+                    <th>Category Pet Id</th>
+                    <th>Image</th>
+                    <th>Registered At</th>
+                    <th>Updated At</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="product : ${productList}" th:object="${product}">
+                    <td th:text="*{productId}"></td>
+                    <td th:text="*{productName}"></td>
+                    <td th:text="*{unitPrice}"></td>
+                    <td th:text="*{categoryProductId}"></td>
+                    <td th:text="*{categoryPetId}"></td>
+                    <td th:text="*{image}"></td>
+                    <td th:text="${#dates.format(product.registeredAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#dates.format(product.updatedAt, 'yyyy/MM/dd')}"></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <h2 class="my-3 ml-3">Details</h2>
+    <form class="ml-3"  method="post" action="/product/insert">
+        <div class="formframe p-3">
+            <input id="productId" type="hidden" th:field="${product.productId}" class="form-control">
+            <div class="form-group">
+                <label>Product Name: <span class="text-danger" th:errors="${product.productName}"></span></label>
+                <input id="productName" type="text" th:field="${product.productName}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Unit Price: <span class="text-danger" th:errors="${product.unitPrice}"></span></label>
+                <input id="productName" type="number" th:field="${product.unitPrice}" class="form-control">
+            </div>
+            <div class="form-group">
+                <label>Category Product:</label>
+                <br>
+                <select class="form-select" th:field="${product.categoryProductId}" >
+                    <option th:each="categoryProduct : ${categoryProductList}" th:text="${categoryProduct.categoryName}" th:value="${categoryProduct.categoryProductId}" ></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Category Pet:</label>
+                <br>
+                <select class="form-select" th:field="${product.categoryPetId}" >
+                    <option th:each="categoryPet : ${categoryPetList}" th:text="${categoryPet.categoryName}" th:value="${categoryPet.categoryPetId}" ></option>
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="formFile" class="form-label">Image</label>
+                <input class="form-control" type="file" id="formFile" th:field="${product.image}">
+              </div>
+        </div>
+        <br>
+        
+        <button id="register" type="submit" class="btn btn-primary">Register</button>
+        <button id="update" type="submit" class="btn btn-success" th:formaction="@{/categoryPet/update}" disabled>Update</button>
+        <button id="delete" type="submit" class="btn btn-danger" th:formaction="@{/categoryPet/delete}" disabled>Delete</button>
+        <button id="clear" type="button" class="btn btn-secondary">Clear</button>
+    </form>
+</body>
+
+<script>
+    
+    $("#clear").on("click", function () {
+        $("#productName").val("");
+        $("#register").prop("disabled", false);
+        $("#update").prop("disabled", true);
+        $("#delete").prop("disabled", true);
+    });
+    
+    $("#producttable tr").on("click", function () {
+        var tr_now = $(this).index() + 1;
+        var table = document.getElementById("producttable");
+        $("#productName").val(table.rows[tr_now].cells[1].textContent);
+        $("#register").prop("disabled", true);
+        $("#update").prop("disabled", false);
+        $("#delete").prop("disabled", false);
+    });
+    
+</script>
+
+</html>

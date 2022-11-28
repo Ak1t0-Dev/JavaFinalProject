@@ -4,12 +4,14 @@ import java.util.List;
 
 import org.springframework.dao.DataAccessException;
 
+import com.onlinepetstore.docastoreproject.domain.model.Employee;
 import com.onlinepetstore.docastoreproject.domain.model.Product;
 
 public interface ProductDao {
 
     // insert a record to product table
-    public int insertRecord(Product product) throws DataAccessException;
+    public int insertRecord(Product product, Employee employee)
+            throws DataAccessException;
 
     // select a record from product table
     public Product selectRecord(int productId) throws DataAccessException;

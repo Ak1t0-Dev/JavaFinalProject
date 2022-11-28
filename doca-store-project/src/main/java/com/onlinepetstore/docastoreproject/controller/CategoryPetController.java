@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.onlinepetstore.docastoreproject.domain.model.CategoryPet;
+import com.onlinepetstore.docastoreproject.domain.model.Employee;
 import com.onlinepetstore.docastoreproject.service.CategoryPetService;
 import com.onlinepetstore.docastoreproject.service.EmployeeService;
 
@@ -21,11 +22,13 @@ import com.onlinepetstore.docastoreproject.service.EmployeeService;
 @RequestMapping("/categoryPet")
 public class CategoryPetController {
     @Autowired
-    CategoryPetService categoryPetService;
+
     EmployeeService employeeService;
+    @Autowired
+    CategoryPetService categoryPetService;
 
     @GetMapping
-    public String showData(Model model, @ModelAttribute("categoryPetService") CategoryPet categoryPet) {
+    public String showData(Model model) {
         List<CategoryPet> categoryPetList = categoryPetService.selectAll();
         model.addAttribute("categoryPetList", categoryPetList);
         model.addAttribute("categoryPet", new CategoryPet());
@@ -36,8 +39,8 @@ public class CategoryPetController {
     public String insert(Model model, @Validated @ModelAttribute("categoryPetService") CategoryPet categoryPet,
             BindingResult result,
             RedirectAttributes redirectAttributes) {
-
-        categoryPetService.insert(categoryPet);
+        Employee employee = employeeService.select(1);
+        categoryPetService.insert(categoryPet, employee);
         return "redirect:/categoryPet";
     }
 

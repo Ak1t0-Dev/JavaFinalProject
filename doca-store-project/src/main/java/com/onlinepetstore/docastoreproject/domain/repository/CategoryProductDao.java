@@ -5,11 +5,12 @@ import java.util.List;
 import org.springframework.dao.DataAccessException;
 
 import com.onlinepetstore.docastoreproject.domain.model.CategoryProduct;
+import com.onlinepetstore.docastoreproject.domain.model.Employee;
 
 public interface CategoryProductDao {
 
     // insert a record to category_product table
-    public int insertRecord(CategoryProduct categoryProduct) throws DataAccessException;
+    public int insertRecord(CategoryProduct categoryProduct, Employee employee) throws DataAccessException;
 
     // select a record from category_product table
     public CategoryProduct selectRecord(int categoryProductId) throws DataAccessException;
@@ -22,5 +23,5 @@ public interface CategoryProductDao {
 
     // delete a record from category_product table
     public int deleteRecord(int categoryProductId) throws DataAccessException;
-   
+
 }

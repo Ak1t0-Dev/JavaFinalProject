@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.onlinepetstore.docastoreproject.domain.model.CategoryPet;
+import com.onlinepetstore.docastoreproject.domain.model.Employee;
 import com.onlinepetstore.docastoreproject.domain.repository.CategoryPetDao;
 
 @Repository("CategoryPetDaoIml")
@@ -21,14 +22,14 @@ public class CategoryPetDaoIml implements CategoryPetDao {
 
     // insert a record to category_pet table
     @Override
-    public int insertRecord(CategoryPet categoryPet) throws DataAccessException {
+    public int insertRecord(CategoryPet categoryPet, Employee employee) throws DataAccessException {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int row = jdbc.update(
                 "INSERT INTO category_pet (category_pet_id, category_name, registered_at, updated_at, employee_register_id, employee_update_id) "
                         + "VALUES (?, ?, ?, ?, ?, ?)",
                 categoryPet.getCategoryPetId(), categoryPet.getCategoryName(),
                 timestamp, timestamp,
-                1, 1);
+                employee.getEmployeeId(), employee.getEmployeeId());
         return row;
     }
 

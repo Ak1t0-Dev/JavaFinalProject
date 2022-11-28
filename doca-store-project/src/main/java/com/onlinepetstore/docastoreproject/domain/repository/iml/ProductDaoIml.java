@@ -11,6 +11,7 @@ import org.springframework.dao.DataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.onlinepetstore.docastoreproject.domain.model.Employee;
 import com.onlinepetstore.docastoreproject.domain.model.Product;
 import com.onlinepetstore.docastoreproject.domain.repository.ProductDao;
 
@@ -22,14 +23,16 @@ public class ProductDaoIml implements ProductDao {
 
     // insert a record to product table
     @Override
-    public int insertRecord(Product product) throws DataAccessException {
+    public int insertRecord(Product product, Employee employee)
+            throws DataAccessException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int row = jdbc.update(
                 "INSERT INTO product (product_id, product_name, unit_price, category_product_id, category_pet_id, image, registered_at, updated_at, employee_register_id, employee_update_id) "
                         + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
                 product.getProductId(), product.getProductName(), product.getUnitPrice(),
                 product.getCategoryProductId(), product.getCategoryPetId(), product.getImage(),
-                product.getRegisteredAt(), product.getUpdatedAt(), product.getEmployeeRegisterId(),
-                product.getEmployeeUpdateId());
+                timestamp, timestamp,
+                employee.getEmployeeId(), employee.getEmployeeId());
         return row;
     }
 
@@ -82,7 +85,8 @@ public class ProductDaoIml implements ProductDao {
         int row = jdbc.update(
                 "UPDATE product "
                         + "SET product_id = ?, product_name = ?, unit_price = ?, category_product_id = ?, category_pet_id = ?, image = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id = ?",
-                product.getProductId(), product.getProductName(), product.getUnitPrice(), product.getCategoryProductId(),
+                product.getProductId(), product.getProductName(), product.getUnitPrice(),
+                product.getCategoryProductId(),
                 product.getCategoryPetId(), product.getImage(), product.getRegisteredAt(), product.getUpdatedAt(),
                 product.getEmployeeRegisterId(), product.getEmployeeUpdateId());
         return row;

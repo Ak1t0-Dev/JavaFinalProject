@@ -8,7 +8,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.onlinepetstore.docastoreproject.domain.model.CategoryPet;
+import com.onlinepetstore.docastoreproject.domain.model.Employee;
 import com.onlinepetstore.docastoreproject.domain.repository.CategoryPetDao;
+import com.onlinepetstore.docastoreproject.domain.repository.EmployeeDao;
 
 @Transactional
 @Service
@@ -16,11 +18,12 @@ public class CategoryPetService {
     @Autowired
     @Qualifier("CategoryPetDaoIml")
     CategoryPetDao dao;
+    EmployeeDao employeeDao;
 
     // insert a record
-    public boolean insert(CategoryPet categoryPet) {
+    public boolean insert(CategoryPet categoryPet, Employee employee) {
 
-        int record = dao.insertRecord(categoryPet);
+        int record = dao.insertRecord(categoryPet, employee);
         boolean result = false;
         if (record > 0) {
             result = true;

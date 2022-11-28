@@ -7,21 +7,21 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.onlinepetstore.docastoreproject.domain.model.CategoryProduct;
 import com.onlinepetstore.docastoreproject.domain.model.Employee;
-import com.onlinepetstore.docastoreproject.domain.repository.CategoryProductDao;
+import com.onlinepetstore.docastoreproject.domain.model.Product;
+import com.onlinepetstore.docastoreproject.domain.repository.ProductDao;
 
 @Transactional
 @Service
-public class CategoryProductService {
+public class ProductService {
 
     @Autowired
-    @Qualifier("CategoryProductDaoIml")
-    CategoryProductDao dao;
+    @Qualifier("ProductDaoIml")
+    ProductDao dao;
 
-    public boolean insert(CategoryProduct categoryProduct, Employee employee) {
+    public boolean insert(Product product, Employee employee) {
 
-        int record = dao.insertRecord(categoryProduct, employee);
+        int record = dao.insertRecord(product, employee);
         boolean result = false;
         if (record > 0) {
             result = true;
@@ -29,7 +29,8 @@ public class CategoryProductService {
         return result;
     }
 
-    public List<CategoryProduct> selectAll() {
+    public List<Product> selectAll() {
         return dao.selectAll();
     }
+
 }
