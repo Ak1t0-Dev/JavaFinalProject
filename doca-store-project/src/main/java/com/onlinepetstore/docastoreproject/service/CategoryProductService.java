@@ -19,6 +19,7 @@ public class CategoryProductService {
     @Qualifier("CategoryProductDaoIml")
     CategoryProductDao dao;
 
+    // insert a record
     public boolean insert(CategoryProduct categoryProduct, Employee employee) {
 
         int record = dao.insertRecord(categoryProduct, employee);
@@ -29,7 +30,36 @@ public class CategoryProductService {
         return result;
     }
 
+    // select a row
+    public CategoryProduct select(int categoryProductId) {
+
+        return dao.selectRecord(categoryProductId);
+    }
+
+    // select all
     public List<CategoryProduct> selectAll() {
         return dao.selectAll();
+    }
+
+    // update a record
+    public boolean update(CategoryProduct categoryProduct, Employee employee) {
+
+        int record = dao.updateRecord(categoryProduct, employee);
+        boolean result = false;
+        if (record > 0) {
+            result = true;
+        }
+        return result;
+    }
+
+    // delete a record
+    public boolean delete(int categoryProductId) {
+
+        int record = dao.deleteRecord(categoryProductId);
+        boolean result = false;
+        if (record > 0) {
+            result = true;
+        }
+        return result;
     }
 }

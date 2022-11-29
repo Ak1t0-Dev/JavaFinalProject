@@ -31,7 +31,6 @@ public class CategoryProductController {
     public String showData(Model model, @ModelAttribute("categoryProductService") CategoryProduct categoryProduct) {
         List<CategoryProduct> categoryProductList = categoryProductService.selectAll();
         model.addAttribute("categoryProductList", categoryProductList);
-        model.addAttribute("categoryProduct", new CategoryProduct());
         return "categoryProduct";
     }
 
@@ -41,8 +40,30 @@ public class CategoryProductController {
             BindingResult result,
             RedirectAttributes redirectAttributes) {
         Employee employee = employeeService.select(1);
+        if (result.hasErrors()) {
+            return showData(model, categoryProduct);
+        }
         categoryProductService.insert(categoryProduct, employee);
         return "redirect:/categoryProduct";
     }
 
+    // update a record
+    @PostMapping("/update")
+    public String update(Model model, @Validated @ModelAttribute("newcategory") CategoryProduct categoryProduct,
+            BindingResult result,
+            RedirectAttributes redirectAttributes) {
+        Employee employee = employeeService.select(1);
+        if (result.hasErrors()) {
+            return showData(model, categoryProduct);
+        }
+        categoryProductService.update(categoryProduct, employee);
+        return "redirect:/categoryProduct";
+    }
+
+    // delete a record
+    @PostMapping("/delete")
+    public String delete(int categoryProductId) {
+        categoryProductService.delete(categoryProductId);
+        return "redirect:/categoryProduct";
+    }
 }

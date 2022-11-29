@@ -20,11 +20,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr th:each="categoryProduct : ${categoryProductList}" th:object="${categoryProduct}">
+                <tr th:each="categoryProductService : ${categoryProductList}" th:object="${categoryProductService}">
                     <td th:text="*{categoryProductId}"></td>
                     <td th:text="*{categoryName}"></td>
-                    <td th:text="${#dates.format(categoryProduct.registeredAt, 'yyyy/MM/dd')}"></td>
-                    <td th:text="${#dates.format(categoryProduct.updatedAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#dates.format(categoryProductService.registeredAt, 'yyyy/MM/dd')}"></td>
+                    <td th:text="${#dates.format(categoryProductService.updatedAt, 'yyyy/MM/dd')}"></td>
                 </tr>
             </tbody>
         </table>
@@ -32,12 +32,16 @@
     <h2 class="my-3 ml-3">Details</h2>
     <form class="ml-3"  method="post" action="/categoryProduct/insert">
         <div class="formframe p-3">
-            <input id="categoryProductId" type="hidden" th:field="${categoryProduct.categoryProductId}" class="form-control">
-            <input id="employeeRegisterId" type="hidden" th:field="${categoryProduct.employeeRegisterId}" class="form-control" >
-            <input id="employeeUpdateId" type="hidden" th:field="${categoryProduct.employeeUpdateId}" class="form-control">
+            <!-- <input id="categoryProductId" type="hidden" th:field="${categoryProductService.categoryProductId}" class="form-control"> -->
+            <input id="employeeRegisterId" type="hidden" th:field="${categoryProductService.employeeRegisterId}" class="form-control" >
+            <input id="employeeUpdateId" type="hidden" th:field="${categoryProductService.employeeUpdateId}" class="form-control">
             <div class="form-group">
-                <label>Category Name: <span class="text-danger" th:errors="${categoryProduct.categoryName}"></span></label>
-                <input id="categoryName" type="text" th:field="${categoryProduct.categoryName}" class="form-control">
+                <label>Category Product ID:</label>
+                <input id="categoryProductId" type="text" th:field="${categoryProductService.categoryProductId}" class="form-control" readonly>
+            </div>
+            <div class="form-group">
+                <label>Category Name: <span class="text-danger" th:errors="${categoryProductService.categoryName}"></span></label>
+                <input id="categoryName" type="text" th:field="${categoryProductService.categoryName}" class="form-control" placeholder="Toy">
             </div>
         </div>
         <br>
@@ -52,6 +56,7 @@
 <script>
 
     $("#clear").on("click", function () {
+        $("#categoryProductId").val("");
         $("#categoryName").val("");
         $("#register").prop("disabled", false);
         $("#update").prop("disabled", true);
@@ -61,6 +66,7 @@
     $("#categoryProducttable tr").on("click", function () {
         var tr_now = $(this).index() + 1;
         var table = document.getElementById("categoryProducttable");
+        $("#categoryProductId").val(table.rows[tr_now].cells[0].textContent);
         $("#categoryName").val(table.rows[tr_now].cells[1].textContent);
         $("#register").prop("disabled", true);
         $("#update").prop("disabled", false);

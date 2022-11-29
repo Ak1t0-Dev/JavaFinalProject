@@ -69,20 +69,24 @@ public class CategoryProductDaoIml implements CategoryProductDao {
 
     // upate a record from category_product table
     @Override
-    public int updateRecord(CategoryProduct categoryProduct) throws DataAccessException {
+    public int updateRecord(CategoryProduct categoryProduct, Employee employee) throws DataAccessException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int row = jdbc.update(
                 "UPDATE category_product "
-                        + "SET category_product_id = ?, category_name = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id  = ?",
-                categoryProduct.getCategoryProductId(), categoryProduct.getCategoryName(),
-                categoryProduct.getRegisteredAt(), categoryProduct.getUpdatedAt(),
-                categoryProduct.getEmployeeRegisterId(), categoryProduct.getEmployeeUpdateId());
+                + "SET category_name = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id  = ?"
+                + " WHERE category_product_id = ?",
+                categoryProduct.getCategoryName(), timestamp,
+                timestamp, employee.getEmployeeId(), employee.getEmployeeId(), categoryProduct.getCategoryProductId());
+        // categoryProduct.getCategoryName(), categoryProduct.getRegisteredAt(), categoryProduct.getUpdatedAt(),
+        // categoryProduct.getEmployeeRegisterId(), categoryProduct.getEmployeeUpdateId(),
+        // categoryProduct.getCategoryProductId());
         return row;
     }
 
     // delete a record from category_product table
     @Override
     public int deleteRecord(int categoryProductId) throws DataAccessException {
-        int row = jdbc.update("DELETE FROM category_product " + "WHERE category_product_id = ?");
+        int row = jdbc.update("DELETE FROM category_product " + "WHERE category_product_id = ?", categoryProductId);
         return row;
     }
 

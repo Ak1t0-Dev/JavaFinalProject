@@ -19,7 +19,7 @@ public interface CategoryProductDao {
     public List<CategoryProduct> selectAll() throws DataAccessException;
 
     // upate a record from category_product table
-    public int updateRecord(CategoryProduct categoryProduct) throws DataAccessException;
+    public int updateRecord(CategoryProduct categoryProduct, Employee employee) throws DataAccessException;
 
     // delete a record from category_product table
     public int deleteRecord(int categoryProductId) throws DataAccessException;
