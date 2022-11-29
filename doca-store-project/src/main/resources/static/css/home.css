@@ -35,45 +35,49 @@ body {
   background-color: #FFF2DB;
 }
 
-/*# sourceMappingURL=home.css.map */
-
-
 h3 {
   font-family: okemo;
   font-size: 15px;
 }
 
-img.produto__img{
-   max-width:200px;
-   max-height: 200px;
-   display:block;
-   margin:auto;
-}
-.produto{
-   border: 8px solid rgb(163, 160, 88, 1);
-   border-radius: 20px;
-   height: 410px;
-   width: 250px;
-   background-color: rgba(236, 160, 171, 0.452);
+img.produto__img {
+  max-width: 200px;
+  max-height: 200px;
+  display: block;
+  margin: auto;
 }
 
-.produto__price{
-   font-family: okemo;
-   color: red;
-   right: 10%;
-
+.produto {
+  border: 8px solid rgb(163, 160, 88);
+  border-radius: 20px;
+  height: 350px;
+  width: 250px;
+  background-color: rgba(236, 160, 171, 0.452);
+  margin: 10px;
+  padding: 10px;
 }
 
-.quantity{
-   font-family: okemo;
-
+.produto__price {
+  font-family: okemo;
+  color: red;
+  right: 10%;
 }
 
-.add_btn{
-   border: 5px solid rgb(163, 160, 88, 1);
-   border-radius: 30px;
-   font-family: okemo;
-   font-size: 15px;
-   margin-left: 30%;
-   background-color: rgb(195, 121, 62, 0.51);
+.quantity {
+  font-family: okemo;
 }
+
+.add_btn {
+  border: 5px solid rgb(163, 160, 88);
+  border-radius: 30px;
+  font-family: okemo;
+  font-size: 15px;
+  margin-left: 30%;
+  background-color: rgba(195, 121, 62, 0.51);
+}
+
+.container {
+  display: inline-flex;
+}
+
+/*# sourceMappingURL=home.css.map */

@@ -4,14 +4,16 @@
 
 <body>
     <div th:replace="store/header :: menu"></div>
-    
-    <div class="produto" th:each="product: ${productList}" style="display: inline-block;">
-        <img class="produto__img" src="../../img/dog_food.jpeg" alt="Dog food">
-        <div class="productDescription">
-            <h3 class="produto__title" th:text="${product.productName}"></h3>
-            <p class="produto__price" th:text="${product.unitPrice}"><p>
-                <p class = "quantity">QT:</p>
-                <button class = "add_btn">Add Cart</button>
+    <div class="container">
+        
+        <div class="produto" th:each="product: ${productList}" >
+            <img class="produto__img" src="../../img/dog_food.jpeg" alt="Dog food">
+            <div class="productDescription">
+                <h3 class="produto__title" th:text="${product.productName}"></h3>
+                <p class="produto__price" th:text="${product.unitPrice}"><p>
+                    <!-- <p class = "quantity">QT:</p> -->
+                    <button class = "add_btn">Add Cart</button>
+                </div>
             </div>
         </div>
     </body>
