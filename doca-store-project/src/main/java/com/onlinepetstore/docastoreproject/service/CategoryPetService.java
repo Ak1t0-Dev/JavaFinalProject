@@ -43,9 +43,9 @@ public class CategoryPetService {
     }
 
     // update a record
-    public boolean update(CategoryPet categoryPet) {
+    public boolean update(CategoryPet categoryPet, Employee employee) {
 
-        int record = dao.updateRecord(categoryPet);
+        int record = dao.updateRecord(categoryPet, employee);
         boolean result = false;
         if (record > 0) {
             result = true;

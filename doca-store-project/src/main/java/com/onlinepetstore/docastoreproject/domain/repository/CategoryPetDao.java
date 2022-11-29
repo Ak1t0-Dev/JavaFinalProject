@@ -19,7 +19,7 @@ public interface CategoryPetDao {
     public List<CategoryPet> selectAll() throws DataAccessException;
 
     // upate a record from category_pet table
-    public int updateRecord(CategoryPet categoryPet) throws DataAccessException;
+    public int updateRecord(CategoryPet categoryPet, Employee employee) throws DataAccessException;
 
     // delete a record from category_pet table
     public int deleteRecord(int categoryPetId) throws DataAccessException;

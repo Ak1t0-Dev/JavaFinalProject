@@ -70,19 +70,22 @@ public class CategoryPetDaoIml implements CategoryPetDao {
 
     // upate a record from category_pet table
     @Override
-    public int updateRecord(CategoryPet categoryPet) throws DataAccessException {
+    public int updateRecord(CategoryPet categoryPet, Employee employee) throws DataAccessException {
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         int row = jdbc.update(
                 "UPDATE category_pet "
-                        + "SET category_pet_id = ?, category_name = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id  = ?",
-                categoryPet.getCategoryPetId(), categoryPet.getCategoryName(), categoryPet.getRegisteredAt(),
-                categoryPet.getUpdatedAt(), categoryPet.getEmployeeRegisterId(), categoryPet.getEmployeeUpdateId());
+                        + "SET category_name = ?, registered_at = ?, updated_at = ?, employee_register_id = ?, employee_update_id  = ?"
+                        + " WHERE category_pet_id = ?",
+                categoryPet.getCategoryName(), timestamp,
+                timestamp, employee.getEmployeeId(), employee.getEmployeeId(),
+                categoryPet.getCategoryPetId());
         return row;
     }
 
     // delete a record from category_pet table
     @Override
     public int deleteRecord(int categoryPetId) throws DataAccessException {
-        int row = jdbc.update("DELETE FROM category_pet " + "WHERE category_pet_id = ?");
+        int row = jdbc.update("DELETE FROM category_pet " + "WHERE category_pet_id = ?", categoryPetId);
         return row;
     }
 
