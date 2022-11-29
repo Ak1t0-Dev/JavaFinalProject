@@ -55,6 +55,7 @@ img.produto__img {
   background-color: rgba(236, 160, 171, 0.452);
   margin: 10px;
   padding: 10px;
+  display: inline-block;
 }
 
 .produto__price {
@@ -77,7 +78,8 @@ img.produto__img {
 }
 
 .container {
-  display: inline-flex;
+  display: inline-block;
+  margin: auto;
 }
 
 /*# sourceMappingURL=home.css.map */
