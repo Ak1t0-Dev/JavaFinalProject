@@ -21,7 +21,7 @@ public class Employee {
     @NotBlank
     @Size(max = 45)
     private String lastName;
-    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    // @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date bornDate;
     @NotBlank
     @Size(max = 20)
