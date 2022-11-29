@@ -11,7 +11,7 @@ nav {
     background: rgba(121, 123, 29, 0.69);
     mix-blend-mode: darken;
     border-radius: 50px;
-
+    
     ul {
         list-style-type: none;
         li {
@@ -40,15 +40,15 @@ body {
 h3 {
     font-family: okemo;
     font-size: 15px;
-  }
-  
-  img.produto__img{
+}
+
+img.produto__img{
     max-width:200px;
     max-height: 200px;
     display:block;
     margin:auto;
-  }
-  .produto{
+}
+.produto{
     border: 8px solid rgb(163, 160, 88, 1);
     border-radius: 20px;
     height: 350px;
@@ -57,30 +57,32 @@ h3 {
     margin: 10px;
     padding: 10px;
     display: inline-block;
-  }
-  
-  .produto__price{
+}
+
+.produto__price{
     font-family: okemo;
     color: red;
-    right: 10%;
-    
-  }
-  
-  .quantity{
+    right: 10%; 
+}
+.produto__price::before {
+    content: '$';
+}
+
+.quantity{
     font-family: okemo;
     
-  }
-  
-  .add_btn{
+}
+
+.add_btn{
     border: 5px solid rgb(163, 160, 88, 1);
     border-radius: 30px;
     font-family: okemo;
     font-size: 15px;
     margin-left: 30%;
     background-color: rgb(195, 121, 62, 0.51);
-  }
+}
 
-  .container {
+.container {
     display: inline-block;
     margin: auto;
-  }
+}

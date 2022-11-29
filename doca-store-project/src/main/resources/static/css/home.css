@@ -64,6 +64,10 @@ img.produto__img {
   right: 10%;
 }
 
+.produto__price::before {
+  content: "$";
+}
+
 .quantity {
   font-family: okemo;
 }
