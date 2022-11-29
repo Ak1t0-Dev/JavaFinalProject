@@ -7,7 +7,7 @@
     <div class="container">
         
         <div class="produto" th:each="product: ${productList}" >
-            <img class="produto__img" src="../../img/dog_food.jpeg" alt="Dog food">
+            <img class="produto__img" src="../../img/dog_food.png" alt="Dog food">
             <div class="productDescription">
                 <h3 class="produto__title" th:text="${product.productName}"></h3>
                 <p class="produto__price" th:text="${product.unitPrice}"><p>
